@@ -2,59 +2,65 @@
 
 (function() {
 
-    const flashcards = document.getElementsByClassName("flashcards")[0];
+    function createQuiz(e){
+        e.preventDefault(); // don't submit the form, we just want to update the data
 
-    function renderFlashcards(terms, index){
-        let card = document.createElement("div");
-        let div = document.createElement("div");
-        let question = document.createElement("h2");
-        let answer = document.createElement("h2");
+        let quizQuestionsAmount = quizQuestionsAmountEntered.value;
+        let quiz = [];
 
-        let switchBtn = document.getElementById("switchBtn");
-        let isTerm = true;
+        console.log(glossaryArray)
 
-        if (index === 0){
-            card.className = "carousel-item active"
-        } else {
-            card.className = "carousel-item"
-        }
+        for (let i = 0; i < quizQuestionsAmount; i++) {
 
-        div.className = "flashcard ";
+            // remove current object from array
+            let glossaryArrayRemoveCurrent = glossaryArray.slice();
+            glossaryArrayRemoveCurrent.splice(i,1);
+            console.log(glossaryArrayRemoveCurrent)
 
-        question.setAttribute("style", "border-top: 1px solid red; padding: 15px; margin-top: 30px");
-        question.innerHTML = terms.term;
+            // randomize array to select wrong answer options
+            let shuffledGlossaryArrayRemoveCurrent = glossaryArrayRemoveCurrent.slice();
+            shuffledGlossaryArrayRemoveCurrent.sort(() => Math.random() - 0.5);
+            console.log(shuffledGlossaryArrayRemoveCurrent)
 
-        answer.setAttribute("style", "text-align: center; display: none; color: blue")
-        answer.innerHTML = terms.definition;
+            let quizQAndA = Object();
+            let quizAnswerOptions = Object();
+            let randomNumber = Math.floor(Math.random() * 4) + 1;
 
-        switchBtn.addEventListener("click", function() {
-            if (isTerm) {
-                question.innerHTML = terms.definition;
-                answer.innerHTML = terms.term;
-                isTerm = false;
+            quizQAndA.question = glossaryArray[i].term;
+
+            if (randomNumber === 1){
+                quizAnswerOptions.a = glossaryArray[i].definition;
+                quizAnswerOptions.b = shuffledGlossaryArrayRemoveCurrent[0].definition;
+                quizAnswerOptions.c = shuffledGlossaryArrayRemoveCurrent[1].definition;
+                quizAnswerOptions.d = shuffledGlossaryArrayRemoveCurrent[2].definition;
+                quizQAndA.correctAnswer = 'a';
+            } else if (randomNumber === 2){
+                quizAnswerOptions.a = shuffledGlossaryArrayRemoveCurrent[0].definition;
+                quizAnswerOptions.b = glossaryArray[i].definition;
+                quizAnswerOptions.c = shuffledGlossaryArrayRemoveCurrent[1].definition;
+                quizAnswerOptions.d = shuffledGlossaryArrayRemoveCurrent[2].definition;
+                quizQAndA.correctAnswer = 'b';
+            } else if (randomNumber === 3){
+                quizAnswerOptions.a = shuffledGlossaryArrayRemoveCurrent[0].definition;
+                quizAnswerOptions.b = shuffledGlossaryArrayRemoveCurrent[1].definition;
+                quizAnswerOptions.c = glossaryArray[i].definition;
+                quizAnswerOptions.d = shuffledGlossaryArrayRemoveCurrent[2].definition;
+                quizQAndA.correctAnswer = 'c';
             } else {
-                question.innerHTML = terms.term;
-                answer.innerHTML = terms.definition;
-                isTerm = true;
+                quizAnswerOptions.a = shuffledGlossaryArrayRemoveCurrent[0].definition;
+                quizAnswerOptions.b = shuffledGlossaryArrayRemoveCurrent[1].definition;
+                quizAnswerOptions.c = shuffledGlossaryArrayRemoveCurrent[2].definition;
+                quizAnswerOptions.d = glossaryArray[i].definition;
+                quizQAndA.correctAnswer = 'd';
             }
-        });
 
-        div.appendChild(question);
-        div.appendChild(answer);
+            quizQAndA.answers = quizAnswerOptions;
 
-        div.addEventListener("click", function (){
-            if(answer.style.display == "none")
-                answer.style.display = "block";
-            else
-                answer.style.display = "none";
-        });
+            quiz.push(quizQAndA);
 
-        card.appendChild(div)
-
-        flashcards.appendChild(card);
+            glossaryArrayRemoveCurrent = glossaryArray;
+        }
     }
-
-
 
     let glossaryArray = [
         {'term': '(S)CRUD', 'definition': 'This refers to the basic operations of data manipulation in a web application, where "S" stands for "Search," "C" for "Create," "R" for "Read," "U" for "Update," and "D" for "Delete." '},
@@ -269,42 +275,8 @@
     }
     shuffleArray(glossaryArray);
 
-    glossaryArray.forEach(renderFlashcards);
-
-
-    function updateFlashcards(e){
-        e.preventDefault(); // don't submit the form, we just want to update the data
-
-        let flashcardTerm = flashcardSelection.value.toLowerCase();
-
-        let filteredFlashcards = [];
-        console.log("FlashcardTerm value: " + flashcardTerm)
-
-        document.getElementById("alert").classList.add('visually-hidden');
-
-        glossaryArray.forEach(function (glossary) {
-            if (glossary.term.toLowerCase().includes(flashcardTerm) || glossary.definition.toLowerCase().includes(flashcardTerm)) {
-                filteredFlashcards.push(glossary);
-            }
-        });
-
-        if (filteredFlashcards.length===0){
-            document.getElementById("alert").classList.remove("visually-hidden");
-        }
-
-        filteredFlashcards.forEach(renderFlashcards);
-
-    }
-
-    let tbody = document.querySelector('.flashcards');
-    let submitButtonFlashcards = document.querySelector('#searchFlashcards');
-    submitButtonFlashcards.addEventListener('click', updateFlashcards);
-
-    let flashcardSelection = document.querySelector("#searchFlashcards");
-    let searchFlashcards = document.getElementById("searchFlashcards");
-    searchFlashcards.addEventListener("keyup", updateFlashcards);
-
-
-
+    let quizQuestionsAmountEntered = document.querySelector("#questions-amount-value");
+    let formQuiz = document.querySelector('#question-amount');
+    formQuiz.addEventListener("submit", createQuiz);
 
 })();
