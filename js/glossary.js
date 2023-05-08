@@ -5,9 +5,9 @@
     const flashcards = document.getElementsByClassName("flashcards")[0];
 
     let glossaryArray = [
-        {'term': '(S)CRUD', 'definition': 'This refers to the basic operations of data manipulation in a web application, where "S" stands for "Search," "C" for "Create," "R" for "Read," "U" for "Update," and "D" for "Delete." '},
-        {'term': '1:1 relationship', 'definition': 'A relationship between two entities in which one entity can be associated with only one instance of the other entity, and vice versa.'},
-        {'term': '1:M relationship', 'definition': 'A relationship between two entities in which one entity can be associated with multiple instances of the other entity, but each instance of the other entity can only be associated with one instance of the first entity.'},
+        // {'term': '(S)CRUD', 'definition': 'This refers to the basic operations of data manipulation in a web application, where "S" stands for "Search," "C" for "Create," "R" for "Read," "U" for "Update," and "D" for "Delete." '},
+        // {'term': '1:1 relationship', 'definition': 'A relationship between two entities in which one entity can be associated with only one instance of the other entity, and vice versa.'},
+        // {'term': '1:M relationship', 'definition': 'A relationship between two entities in which one entity can be associated with multiple instances of the other entity, but each instance of the other entity can only be associated with one instance of the first entity.'},
         // {'term': '4 basic SQL statements', 'definition': 'Select, Insert, Update, and Delete'},
         // {'term': 'Absolute path', 'definition': 'The full URL of a web page, including the protocol (http:// or https://) and the domain name.'},
         // {'term': 'Abstract class', 'definition': 'A class in object-oriented programming that cannot be instantiated on its own and is intended to be subclassed.'},
@@ -25,7 +25,7 @@
         // {'term': 'Arrow function', 'definition': 'A shorthand syntax for creating a function in JavaScript.'},
         // {'term': 'Associative table', 'definition': 'A database table that is used to define a many-to-many relationship between two other tables.'},
         // {'term': 'Asynch/await', 'definition': 'A feature in JavaScript that allows for asynchronous programming using promises.'},
-        // {'term': 'Asynchronous nature of JavaScript', 'definition': 'JavaScript`s ability to execute code without blocking the main thread, allowing for better performance and responsiveness in web applications.'},
+        {'term': 'Asynchronous nature of JavaScript', 'definition': 'JavaScript`s ability to execute code without blocking the main thread, allowing for better performance and responsiveness in web applications.'},
         // {'term': 'Authentication', 'definition': 'The process of verifying the identity of a user or device in order to grant access to a web application.'},
         // {'term': 'Backend', 'definition': 'The part of a web application that runs on the server and is responsible for processing requests and returning responses.'},
         // {'term': 'Backlog', 'definition': 'A list of features or tasks that need to be completed for a web application.'},
@@ -35,14 +35,14 @@
         // {'term': 'Box model', 'definition': 'A conceptual model used in web design that describes how HTML elements are laid out on a web page. The box model consists of four parts: content, padding, border, and margin.'},
         // {'term': 'Build tool', 'definition': 'A software tool used to automate the process of building and deploying web applications. Examples of build tools include Grunt, Gulp, and Webpack.'},
         // {'term': 'Catching an exception', 'definition': 'The process of handling an error that occurs during the execution of a program. When an exception is thrown, it can be caught and handled in a specific way, such as displaying an error message to the user or logging the error for debugging purposes.'},
-        // {'term': 'Checked exception', 'definition': 'In Java, a type of exception that must be declared in a method`s signature or handled using a try-catch block. Checked exceptions are used to handle error conditions that are outside of a program`s control, such as I/O errors or network failures.'},
+        {'term': 'Checked exception', 'definition': 'In Java, a type of exception that must be declared in a method`s signature or handled using a try-catch block. Checked exceptions are used to handle error conditions that are outside of a program`s control, such as I/O errors or network failures.'},
         // {'term': 'Class', 'definition': 'A blueprint for creating objects in object-oriented programming. A class defines the properties and methods that an object will have.'},
         // {'term': 'Collection', 'definition': 'A group of related objects or values that can be manipulated together. In web development, collections are often used to store and retrieve data from databases.'},
         // {'term': 'Columns', 'definition': 'In web design, a layout technique used to arrange content in a grid. Columns can be used to create responsive designs that adapt to different screen sizes.'},
         // {'term': 'Compiled language', 'definition': 'A programming language that is converted into machine code before it is executed. Examples of compiled languages include C, C++, and Java.'},
         // {'term': 'Conditional', 'definition': 'A programming construct that allows code to be executed only if a certain condition is met. Conditionals are often used to control the flow of a program.'},
         // {'term': 'Constant', 'definition': 'A variable whose value cannot be changed once it has been assigned. Constants are often used to represent fixed values or settings in a program.'},
-        // {'term': 'Constructor', 'definition': 'A special method in a class that is used to create and initialize objects. Constructors are called when an object is created and can be used to set initial values for the object`s properties.'},
+        {'term': 'Constructor', 'definition': 'A special method in a class that is used to create and initialize objects. Constructors are called when an object is created and can be used to set initial values for the object`s properties.'},
         // {'term': 'Controller', 'definition': 'A component that handles user input and manages the flow of data between the model and the view. Controllers are often used in the Model-View-Controller (MVC) architectural pattern.'},
         // {'term': 'Create, alter, drop', 'definition': 'SQL commands used to create, modify, and delete database objects such as tables, indexes, and views.'},
         // {'term': 'CSS', 'definition': 'Cascading Style Sheets, a language used to describe the presentation of HTML elements on a web page. CSS is used to control layout, typography, color, and other visual aspects of a website.'},
@@ -57,14 +57,14 @@
         // {'term': 'DOM', 'definition': 'Document Object Model is a programming interface for HTML and XML documents. It represents the page so that programs can change the document structure, style, and content.'},
         // {'term': 'DOM traversal', 'definition': 'The process of navigating and manipulating elements in the DOM tree structure using JavaScript methods.'},
         // {'term': 'Element', 'definition': 'An individual component of an HTML document, such as a paragraph, image, or form.'},
-        // {'term': 'Embedded CSS', 'definition': 'CSS styles that are included directly in the HTML document using the `<style>` tag.'},
+        {'term': 'Embedded CSS', 'definition': 'CSS styles that are included directly in the HTML document using the `<style>` tag.'},
         // {'term': 'Endpoint', 'definition': 'A specific URL within a web API that serves a particular function, such as retrieving or updating data.'},
         // {'term': 'Entity', 'definition': 'A data object that represents a real-world object, such as a customer or product, in a database.'},
         // {'term': 'Event listener', 'definition': 'A function that is executed in response to a specific event, such as a mouse click or keypress.'},
         // {'term': 'Exception', 'definition': 'An error or unexpected event that occurs during program execution.'},
         // {'term': 'Exclusive left or right join', 'definition': 'A type of SQL join that returns only the rows from one table that do not have matching values in the other table. An exclusive left join returns all rows from the left table and only the unmatched rows from the right table, while an exclusive right join returns all rows from the right table and only the unmatched rows from the left table.'},
         // {'term': 'Expression', 'definition': 'A piece of code that can be evaluated to produce a value.'},
-        // {'term': 'External CSS', 'definition': 'CSS styles that are included in a separate file and linked to the HTML document using the `<link>` tag.'},
+        {'term': 'External CSS', 'definition': 'CSS styles that are included in a separate file and linked to the HTML document using the `<link>` tag.'},
         // {'term': 'Fetch', 'definition': ' JavaScript API for making network requests to retrieve data from a server.'},
         // {'term': 'Field', 'definition': 'A column or attribute in a database table that represents a specific piece of data.'},
         // {'term': 'File', 'definition': 'A collection of data that is stored on a computer or server and can be accessed by a program.'},
@@ -169,7 +169,7 @@
         // {'term': 'RESTful API', 'definition': 'An API (Application Programming Interface) that adheres to the principles of Representational State Transfer (REST). RESTful APIs use HTTP methods (GET, POST, PUT, DELETE) to manipulate resources, and typically return data in JSON or XML format.'},
         // {'term': 'robust', 'definition': 'A term used to describe software that is able to handle a wide range of inputs and conditions without crashing or producing incorrect results. Robust software is often designed to handle errors and unexpected situations gracefully.'},
         // {'term': 'Route', 'definition': 'A specific URL pattern that is associated with a particular controller method in a web application. Routes are used to map incoming HTTP requests to specific actions in the application.'},
-        // {'term': 'Routing', 'definition': 'The process of determining which controller method should handle an incoming HTTP request based on the request`s URL and other parameters.'},
+        {'term': 'Routing', 'definition': 'The process of determining which controller method should handle an incoming HTTP request based on the request`s URL and other parameters.'},
         // {'term': 'Schema', 'definition': 'A blueprint or plan for the structure of a database. A schema typically includes definitions for tables, columns, relationships, and other database objects.'},
         // {'term': 'Scope', 'definition': 'The range or visibility of a variable or other programming construct. In web development, the term scope is often used to describe the lifetime of a variable or object within the context of a request or session.'},
         // {'term': 'Scrum', 'definition': 'A popular Agile methodology for software development that emphasizes iterative, incremental delivery of working software. Scrum is typically used in teams of 3-9 members, with daily stand-up meetings and regular sprint reviews.'},
@@ -197,7 +197,7 @@
         // {'term': 'this', 'definition': 'A keyword in object-oriented programming that refers to the current instance of a class.'},
         // {'term': 'Throwing an exception', 'definition': 'An action taken by a program when it encounters an error or other exceptional condition. Exceptions are typically used to signal that something has gone wrong and that normal program execution cannot continue.'},
         // {'term': 'Truthy and falsy', 'definition': 'In JavaScript and other languages, values that are considered true or false in boolean expressions. Falsy values include null, undefined, and false, while truthy values include all other values.'},
-        // {'term': 'Unchecked exception', 'definition': 'An exception that does not need to be declared in a method`s signature or caught in a try-catch block. Unchecked exceptions are typically used for errors that are outside of the control of the program.'},
+        {'term': 'Unchecked exception', 'definition': 'An exception that does not need to be declared in a method`s signature or caught in a try-catch block. Unchecked exceptions are typically used for errors that are outside of the control of the program.'},
         // {'term': 'Unit (of code)', 'definition': 'A small, independent piece of code that performs a specific function or task.'},
         // {'term': 'Unit Test', 'definition': 'A type of automated test that verifies the behavior of a single unit of code in isolation from other units.'},
         // {'term': 'Unit testing', 'definition': 'The practice of writing automated tests for individual units of code in order to verify their correctness and behavior.'},
@@ -212,9 +212,15 @@
         // {'term': 'Wireframe', 'definition': 'A visual representation of the layout and structure of a web page or user interface, typically created in the design phase of a web development project. Wireframes are used to explore and refine the design of a web page or user interface, and to communicate design ideas to other members of the development team.'}
     ];
 
+    function shuffleArray(glossaryArray){
+        glossaryArray.sort(() => Math.random() - 0.5);
+    }
+    shuffleArray(glossaryArray);
+
     glossaryArray.forEach(divMaker);
 
-    function divMaker(terms){
+    function divMaker(terms, index){
+        let card = document.createElement("div");
         let div = document.createElement("div");
         let question = document.createElement("h2");
         let answer = document.createElement("h2");
@@ -222,12 +228,18 @@
         let switchBtn = document.getElementById("switchBtn");
         let isTerm = true;
 
-        div.className = 'flashcard';
+        if (index === 0){
+            card.className = "carousel-item active"
+        } else {
+            card.className = "carousel-item"
+        }
+
+        div.className = "flashcard ";
 
         question.setAttribute("style", "border-top: 1px solid red; padding: 15px; margin-top: 30px");
         question.innerHTML = terms.term;
 
-        answer.setAttribute("style", "text-align: center; display: none; color: red")
+        answer.setAttribute("style", "text-align: center; display: none; color: blue")
         answer.innerHTML = terms.definition;
 
         switchBtn.addEventListener("click", function() {
@@ -252,9 +264,12 @@
                 answer.style.display = "none";
         });
 
-        flashcards.appendChild(div);
-        console.log(div)
+        card.appendChild(div)
 
+        flashcards.appendChild(card);
+
+
+        console.log(index)
     }
 
 })();

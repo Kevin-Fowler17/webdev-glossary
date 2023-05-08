@@ -1,10 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&display=swap');
 
-ul.indexUL {
-    display: inline-block;
-    text-align: left;
-}
-
 body {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 1rem;
@@ -15,41 +10,46 @@ header {
     background-color: white;
 }
 
-.flashcards {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    width: 100%;
-    margin: auto;
-    margin-top: 10px;
-    padding: 0 10px;
+ul.indexUL {
+    list-style: none;
+    display: inline-block;
+    text-align: left;
 }
 
 .flashcard {
-    width: 370px;
-    height: 200px;
+    width: 555px;
+    height: 300px;
     word-wrap: break-word;
-    margin: 10px;
+    margin: 30px;
     background-color: white;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
-    padding: 10px;
+    padding: 30px;
 }
 
 .flashcard h2 {
     font-size: 1rem;
 }
 
-@media(max-width: 768px) {
+@media(max-width: 500px) {
     .flashcard {
+        width: 416px;
+        height: 300px;
+        margin: 23px;
+        padding: 23px;
         margin: auto;
     }
     .flashcard {
         margin-top: 10px;
         margin-bottom: 10px;
     }
-}
-
-button.btn-primary:focus {
-    outline: none;
+    .carousel-control-prev {
+        align-items: flex-end;
+        left: 35%;
+        bottom: 5%;
+    }
+    .carousel-control-next {
+        align-items: flex-end;
+        right: 35%;
+        bottom: 5%;
+    }
 }
