@@ -54,6 +54,8 @@
         flashcards.appendChild(card);
     }
 
+
+
     let glossaryArray = [
         {'term': '(S)CRUD', 'definition': 'This refers to the basic operations of data manipulation in a web application, where "S" stands for "Search," "C" for "Create," "R" for "Read," "U" for "Update," and "D" for "Delete." '},
         {'term': '1:1 relationship', 'definition': 'A relationship between two entities in which one entity can be associated with only one instance of the other entity, and vice versa.'},
@@ -295,11 +297,26 @@
     }
 
     let tbody = document.querySelector('.flashcards');
-    let submitButton = document.querySelector('#searchFlashcards');
-    submitButton.addEventListener('click', updateFlashcards);
+    let submitButtonFlashcards = document.querySelector('#searchFlashcards');
+    submitButtonFlashcards.addEventListener('click', updateFlashcards);
 
     let flashcardSelection = document.querySelector("#searchFlashcards");
     let searchFlashcards = document.getElementById("searchFlashcards");
     searchFlashcards.addEventListener("keyup", updateFlashcards);
+
+
+    let questionAmount = document.querySelector('#question-amount-value');
+    let submitButtonQuiz = questionAmount.querySelector('#questions-amount-submit');
+
+    console.log("asdf" + questionAmount.value)
+
+    submitButtonQuiz.addEventListener('click', (event) => {
+        event.preventDefault(); // prevents the default form submission behavior
+        let asdf = questionAmount.value;
+
+        console.log(asdf)
+    });
+
+
 
 })();
