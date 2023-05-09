@@ -149,48 +149,48 @@
 
         input1.setAttribute("type", "radio");
         input1.className = "form-check-input";
-        input1.setAttribute("id", "radio_" + index + "_1");
+        input1.setAttribute("id", "radio_" + index + "_0");
         input1.setAttribute("name", "q" + index)
         input1.setAttribute("value", "a");
 
         label1.className = "form-check-label";
-        label1.setAttribute("for", "radio_" + index + "_1");
+        label1.setAttribute("for", "radio_" + index + "_0");
         label1.innerHTML = quiz.answers.a;
 
         divFormCheck2.className = "form-check pb-2";
 
         input2.setAttribute("type", "radio");
         input2.className = "form-check-input";
-        input2.setAttribute("id", "radio_" + index + "_2");
+        input2.setAttribute("id", "radio_" + index + "_1");
         input2.setAttribute("name", "q" + index)
         input2.setAttribute("value", "b");
 
         label2.className = "form-check-label";
-        label2.setAttribute("for", "radio_" + index + "_2");
+        label2.setAttribute("for", "radio_" + index + "_1");
         label2.innerHTML = quiz.answers.b;
 
         divFormCheck3.className = "form-check pb-2";
 
         input3.setAttribute("type", "radio");
         input3.className = "form-check-input";
-        input3.setAttribute("id", "radio_" + index + "_3");
+        input3.setAttribute("id", "radio_" + index + "_2");
         input3.setAttribute("name", "q" + index)
         input3.setAttribute("value", "c");
 
         label3.className = "form-check-label";
-        label3.setAttribute("for", "radio_" + index + "_3");
+        label3.setAttribute("for", "radio_" + index + "_2");
         label3.innerHTML = quiz.answers.c;
 
         divFormCheck4.className = "form-check pb-2";
 
         input4.setAttribute("type", "radio");
         input4.className = "form-check-input";
-        input4.setAttribute("id", "radio_" + index + "_4");
+        input4.setAttribute("id", "radio_" + index + "_3");
         input4.setAttribute("name", "q" + index)
         input4.setAttribute("value", "d");
 
         label4.className = "form-check-label";
-        label4.setAttribute("for", "radio_" + index + "_4");
+        label4.setAttribute("for", "radio_" + index + "_3");
         label4.innerHTML = quiz.answers.d;
 
         divFormCheck1.appendChild(input1);
@@ -224,20 +224,34 @@
 
         for (let i = 0; i < quiz.length; i++) {
 
-            let radioButtons = document.getElementsByName("q" + i);
+            let answerOptions = document.getElementsByName("q" + i);
 
             let radioGroup = document.getElementById('radio-group' + i);
             radioGroup.disabled = true;
 
-
-            // Loop through the radio buttons to find the selected one
-            for (let j = 0; j < radioButtons.length; j++) {
-                if (radioButtons[j].checked) {
-                    // Retrieve the value of the selected radio button
-                    let answer = radioButtons[j].value;
-                    console.log("Selected answer: " + answer);
+            for (let j = 0; j < answerOptions.length; j++) {
+                if (answerOptions[j].checked) {
+                    let answer = answerOptions[j].value;
                     if (quiz[i].correctAnswer === answer){
+                        let changeColorGreen = document.querySelector(`label[for="radio_${i}_${j}"]`);
+                        changeColorGreen.classList.add('text-success');
                         correctAnswers++;
+                    } else if (quiz[i].correctAnswer !== answer) {
+                        let changeColorRed = document.querySelector(`label[for="radio_${i}_${j}"]`);
+                        changeColorRed.classList.add('text-danger');
+                        if (quiz[i].correctAnswer === "a") {
+                            let changeColorGreen = document.querySelector(`label[for="radio_${i}_0"]`);
+                            changeColorGreen.classList.add('text-success');
+                        } else if (quiz[i].correctAnswer === "b"){
+                            let changeColorGreen = document.querySelector(`label[for="radio_${i}_1"]`);
+                            changeColorGreen.classList.add('text-success');
+                        } else if (quiz[i].correctAnswer === "c"){
+                            let changeColorGreen = document.querySelector(`label[for="radio_${i}_2"]`);
+                            changeColorGreen.classList.add('text-success');
+                        } else if (quiz[i].correctAnswer === "d"){
+                            let changeColorGreen = document.querySelector(`label[for="radio_${i}_3"]`);
+                            changeColorGreen.classList.add('text-success');
+                        }
                     }
                     break;
                 }
