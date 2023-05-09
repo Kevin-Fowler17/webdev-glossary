@@ -222,12 +222,14 @@
 
         let correctAnswers = 0;
 
+        let disableRadioButtons = document.querySelectorAll('input[type="radio"]');
+        for (let i = 0; i < disableRadioButtons.length; i++) {
+            disableRadioButtons[i].disabled = true;
+        }
+
         for (let i = 0; i < quiz.length; i++) {
 
             let answerOptions = document.getElementsByName("q" + i);
-
-            let radioGroup = document.getElementById('radio-group' + i);
-            radioGroup.disabled = true;
 
             for (let j = 0; j < answerOptions.length; j++) {
                 if (answerOptions[j].checked) {
