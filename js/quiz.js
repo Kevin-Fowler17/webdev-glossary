@@ -2,7 +2,9 @@
 
 (function() {
 
-    const quiz = document.getElementsByClassName("quiz")[0];
+    const displayQuiz = document.getElementsByClassName("displayQuiz")[0];
+    const results = document.getElementsByClassName("results")[0];
+    let quiz = [];
 
     function createQuiz(e){
         e.preventDefault(); // don't submit the form, we just want to update the data
@@ -11,7 +13,7 @@
         document.getElementById("quiz-questions").classList.remove('visually-hidden');
 
         let quizQuestionsAmount = quizQuestionsAmountEntered.value;
-        let quiz = [];
+        // let quiz = [];
 
         for (let i = 0; i < quizQuestionsAmount; i++) {
 
@@ -39,7 +41,6 @@
             glossaryArrayRemoveCurrent = glossaryArray;
         }
 
-        console.log(quiz)
         quiz.forEach(renderQuizQuestions);
 
     }
@@ -142,7 +143,7 @@
         label.innerHTML = "Q" + questionNumber + ". " + quiz.question;
 
         divRadioGroup.className = "";
-        divRadioGroup.setAttribute("id", "radio-group" + index)
+        divRadioGroup.setAttribute("id", "radio-group" + index);
 
         divFormCheck1.className = "form-check pb-2";
 
@@ -212,30 +213,62 @@
         quizQuestion.appendChild(label);
 
         quizQuestion.appendChild(divRadioGroup);
-        console.log(quizQuestion)
-        // quiz.appendChild(quizQuestion);
 
-        //  *   <div class="quiz-question">-->
-        //  *      <label for="radio-group" class="pb-2 pt-3">Q1. What is your favorite color?</label>-->
-        //  *       <div id="radio-group">-->
-        //  *           <div class="form-check pb-2">-->
-        //  *               <input type="radio" class="form-check-input " id="radio1" name="q1" value="option1">-->
-        //  *               <label class="form-check-label" for="radio1">Option 1</label>-->
-        //  *           </div>-->
-        //  *           <div class="form-check pb-2">-->
-        //  *               <input type="radio" class="form-check-input" id="radio2" name="q1" value="option2">-->
-        //  *               <label class="form-check-label" for="radio2">Option 2</label>-->
-        //  *           </div>-->
-        //  *           <div class="form-check pb-2">-->
-        //  *               <input type="radio" class="form-check-input" id="radio3" name="q1" value="option3">-->
-        //  *               <label class="form-check-label" for="radio3">Option 3</label>-->
-        //  *           </div>-->
-        //  *           <div class="form-check pb-2">-->
-        //  *               <input type="radio" class="form-check-input" id="radio4" name="q1" value="option4">-->
-        //  *               <label class="form-check-label" for="radio4">Option 4</label>-->
-        //  *           </div>-->
-        //  *       </div>-->
-        //  *   </div>-->
+        displayQuiz.appendChild(quizQuestion);
+    }
+
+    function getResults(e) {
+        e.preventDefault(); // don't submit the form, we just want to update the data
+
+        let correctAnswers = 0;
+
+        for (let i = 0; i < quiz.length; i++) {
+
+            let radioButtons = document.getElementsByName("q" + i);
+
+            let radioGroup = document.getElementById('radio-group' + i);
+            radioGroup.disabled = true;
+
+
+            // Loop through the radio buttons to find the selected one
+            for (let j = 0; j < radioButtons.length; j++) {
+                if (radioButtons[j].checked) {
+                    // Retrieve the value of the selected radio button
+                    let answer = radioButtons[j].value;
+                    console.log("Selected answer: " + answer);
+                    if (quiz[i].correctAnswer === answer){
+                        correctAnswers++;
+                    }
+                    break;
+                }
+            }
+        }
+
+        let questionsAsked = document.createElement("p");
+        let questionsRight = document.createElement("p");
+        let questionsWrong = document.createElement("p");
+        let questionsPercentRight = document.createElement("p");
+
+        questionsAsked.className = "text-dark";
+        questionsAsked.innerHTML = "Questions: " + quiz.length;
+
+        questionsRight.className = "text-success";
+        questionsRight.innerHTML = "Correct: " + correctAnswers;
+
+        questionsWrong.className = "text-danger";
+        questionsWrong.innerHTML = "Wrong: " + (quiz.length - correctAnswers);
+
+        questionsPercentRight.className = "text-dark";
+        questionsPercentRight.innerHTML = "Percentage: " + (correctAnswers / quiz.length * 100).toFixed(0) + "%";
+
+        results.innerHTML = '';
+
+        results.appendChild(questionsAsked);
+        results.appendChild(questionsRight);
+        results.appendChild(questionsWrong);
+        results.appendChild(questionsPercentRight);
+
+        document.getElementById("results").classList.remove('visually-hidden');
 
     }
 
@@ -456,5 +489,8 @@
     let quizQuestionsAmountEntered = document.querySelector("#questions-amount-value");
     let formQuiz = document.querySelector('#question-amount');
     formQuiz.addEventListener("submit", createQuiz);
+
+    let submitAnswers = document.querySelector('#get-results');
+    submitAnswers.addEventListener("click", getResults);
 
 })();
