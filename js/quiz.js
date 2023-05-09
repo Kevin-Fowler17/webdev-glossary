@@ -2,65 +2,243 @@
 
 (function() {
 
+    const quiz = document.getElementsByClassName("quiz")[0];
+
     function createQuiz(e){
         e.preventDefault(); // don't submit the form, we just want to update the data
+
+        document.getElementById("question-amount").classList.add('visually-hidden');
+        document.getElementById("quiz-questions").classList.remove('visually-hidden');
 
         let quizQuestionsAmount = quizQuestionsAmountEntered.value;
         let quiz = [];
 
-        console.log(glossaryArray)
-
         for (let i = 0; i < quizQuestionsAmount; i++) {
+
+            let quizQAndA = {};
+            let quizAnswerOptions = {};
+
+            let randomNumber1to2 = Math.floor(Math.random() * 2) + 1;
+            let randomNumber1to4 = Math.floor(Math.random() * 4) + 1;
 
             // remove current object from array
             let glossaryArrayRemoveCurrent = glossaryArray.slice();
             glossaryArrayRemoveCurrent.splice(i,1);
-            console.log(glossaryArrayRemoveCurrent)
 
             // randomize array to select wrong answer options
             let shuffledGlossaryArrayRemoveCurrent = glossaryArrayRemoveCurrent.slice();
             shuffledGlossaryArrayRemoveCurrent.sort(() => Math.random() - 0.5);
-            console.log(shuffledGlossaryArrayRemoveCurrent)
 
-            let quizQAndA = Object();
-            let quizAnswerOptions = Object();
-            let randomNumber = Math.floor(Math.random() * 4) + 1;
-
-            quizQAndA.question = glossaryArray[i].term;
-
-            if (randomNumber === 1){
-                quizAnswerOptions.a = glossaryArray[i].definition;
-                quizAnswerOptions.b = shuffledGlossaryArrayRemoveCurrent[0].definition;
-                quizAnswerOptions.c = shuffledGlossaryArrayRemoveCurrent[1].definition;
-                quizAnswerOptions.d = shuffledGlossaryArrayRemoveCurrent[2].definition;
-                quizQAndA.correctAnswer = 'a';
-            } else if (randomNumber === 2){
-                quizAnswerOptions.a = shuffledGlossaryArrayRemoveCurrent[0].definition;
-                quizAnswerOptions.b = glossaryArray[i].definition;
-                quizAnswerOptions.c = shuffledGlossaryArrayRemoveCurrent[1].definition;
-                quizAnswerOptions.d = shuffledGlossaryArrayRemoveCurrent[2].definition;
-                quizQAndA.correctAnswer = 'b';
-            } else if (randomNumber === 3){
-                quizAnswerOptions.a = shuffledGlossaryArrayRemoveCurrent[0].definition;
-                quizAnswerOptions.b = shuffledGlossaryArrayRemoveCurrent[1].definition;
-                quizAnswerOptions.c = glossaryArray[i].definition;
-                quizAnswerOptions.d = shuffledGlossaryArrayRemoveCurrent[2].definition;
-                quizQAndA.correctAnswer = 'c';
+            if (randomNumber1to2 === 1) {
+                generateQuesTermToDef(quizQAndA, i, randomNumber1to4, quizAnswerOptions, shuffledGlossaryArrayRemoveCurrent)
             } else {
-                quizAnswerOptions.a = shuffledGlossaryArrayRemoveCurrent[0].definition;
-                quizAnswerOptions.b = shuffledGlossaryArrayRemoveCurrent[1].definition;
-                quizAnswerOptions.c = shuffledGlossaryArrayRemoveCurrent[2].definition;
-                quizAnswerOptions.d = glossaryArray[i].definition;
-                quizQAndA.correctAnswer = 'd';
+                generateQuesDefToTerm(quizQAndA, i, randomNumber1to4, quizAnswerOptions, shuffledGlossaryArrayRemoveCurrent)
             }
 
-            quizQAndA.answers = quizAnswerOptions;
-
             quiz.push(quizQAndA);
-
             glossaryArrayRemoveCurrent = glossaryArray;
         }
+
+        console.log(quiz)
+        quiz.forEach(renderQuizQuestions);
+
     }
+
+    function generateQuesTermToDef(quizQAndA, i, randomNumber1to4, quizAnswerOptions, shuffledGlossaryArrayRemoveCurrent){
+
+        quizQAndA.question = glossaryArray[i].term;
+
+        if (randomNumber1to4 === 1){
+            quizAnswerOptions.a = glossaryArray[i].definition;
+            quizAnswerOptions.b = shuffledGlossaryArrayRemoveCurrent[0].definition;
+            quizAnswerOptions.c = shuffledGlossaryArrayRemoveCurrent[1].definition;
+            quizAnswerOptions.d = shuffledGlossaryArrayRemoveCurrent[2].definition;
+            quizQAndA.correctAnswer = 'a';
+        } else if (randomNumber1to4 === 2){
+            quizAnswerOptions.a = shuffledGlossaryArrayRemoveCurrent[0].definition;
+            quizAnswerOptions.b = glossaryArray[i].definition;
+            quizAnswerOptions.c = shuffledGlossaryArrayRemoveCurrent[1].definition;
+            quizAnswerOptions.d = shuffledGlossaryArrayRemoveCurrent[2].definition;
+            quizQAndA.correctAnswer = 'b';
+        } else if (randomNumber1to4 === 3){
+            quizAnswerOptions.a = shuffledGlossaryArrayRemoveCurrent[0].definition;
+            quizAnswerOptions.b = shuffledGlossaryArrayRemoveCurrent[1].definition;
+            quizAnswerOptions.c = glossaryArray[i].definition;
+            quizAnswerOptions.d = shuffledGlossaryArrayRemoveCurrent[2].definition;
+            quizQAndA.correctAnswer = 'c';
+        } else {
+            quizAnswerOptions.a = shuffledGlossaryArrayRemoveCurrent[0].definition;
+            quizAnswerOptions.b = shuffledGlossaryArrayRemoveCurrent[1].definition;
+            quizAnswerOptions.c = shuffledGlossaryArrayRemoveCurrent[2].definition;
+            quizAnswerOptions.d = glossaryArray[i].definition;
+            quizQAndA.correctAnswer = 'd';
+        }
+
+        quizQAndA.answers = quizAnswerOptions;
+
+        return quizQAndA;
+    }
+
+    function generateQuesDefToTerm(quizQAndA, i, randomNumber1to4, quizAnswerOptions, shuffledGlossaryArrayRemoveCurrent){
+
+        quizQAndA.question = glossaryArray[i].definition;
+
+        if (randomNumber1to4 === 1){
+            quizAnswerOptions.a = glossaryArray[i].term;
+            quizAnswerOptions.b = shuffledGlossaryArrayRemoveCurrent[0].term;
+            quizAnswerOptions.c = shuffledGlossaryArrayRemoveCurrent[1].term;
+            quizAnswerOptions.d = shuffledGlossaryArrayRemoveCurrent[2].term;
+            quizQAndA.correctAnswer = 'a';
+        } else if (randomNumber1to4 === 2){
+            quizAnswerOptions.a = shuffledGlossaryArrayRemoveCurrent[0].term;
+            quizAnswerOptions.b = glossaryArray[i].term;
+            quizAnswerOptions.c = shuffledGlossaryArrayRemoveCurrent[1].term;
+            quizAnswerOptions.d = shuffledGlossaryArrayRemoveCurrent[2].term;
+            quizQAndA.correctAnswer = 'b';
+        } else if (randomNumber1to4 === 3){
+            quizAnswerOptions.a = shuffledGlossaryArrayRemoveCurrent[0].term;
+            quizAnswerOptions.b = shuffledGlossaryArrayRemoveCurrent[1].term;
+            quizAnswerOptions.c = glossaryArray[i].term;
+            quizAnswerOptions.d = shuffledGlossaryArrayRemoveCurrent[2].term;
+            quizQAndA.correctAnswer = 'c';
+        } else {
+            quizAnswerOptions.a = shuffledGlossaryArrayRemoveCurrent[0].term;
+            quizAnswerOptions.b = shuffledGlossaryArrayRemoveCurrent[1].term;
+            quizAnswerOptions.c = shuffledGlossaryArrayRemoveCurrent[2].term;
+            quizAnswerOptions.d = glossaryArray[i].term;
+            quizQAndA.correctAnswer = 'd';
+        }
+
+        quizQAndA.answers = quizAnswerOptions;
+
+        return quizQAndA;
+    }
+
+    function renderQuizQuestions(quiz, index){
+
+        let questionNumber = index + 1;
+
+        let quizQuestion = document.createElement("div");
+        let label = document.createElement("label");
+        let divRadioGroup = document.createElement("div");
+        let divFormCheck1 = document.createElement("div");
+        let input1 = document.createElement("input");
+        let label1 = document.createElement("label");
+        let divFormCheck2 = document.createElement("div");
+        let input2 = document.createElement("input");
+        let label2 = document.createElement("label");
+        let divFormCheck3 = document.createElement("div");
+        let input3 = document.createElement("input");
+        let label3 = document.createElement("label");
+        let divFormCheck4 = document.createElement("div");
+        let input4 = document.createElement("input");
+        let label4 = document.createElement("label");
+
+        quizQuestion.className = "quiz-question";
+
+        label.className = "pb-2 pt-3";
+
+        label.setAttribute("for", "radio-group" + index);
+        label.innerHTML = "Q" + questionNumber + ". " + quiz.question;
+
+        divRadioGroup.className = "";
+        divRadioGroup.setAttribute("id", "radio-group" + index)
+
+        divFormCheck1.className = "form-check pb-2";
+
+        input1.setAttribute("type", "radio");
+        input1.className = "form-check-input";
+        input1.setAttribute("id", "radio_" + index + "_1");
+        input1.setAttribute("name", "q" + index)
+        input1.setAttribute("value", "a");
+
+        label1.className = "form-check-label";
+        label1.setAttribute("for", "radio_" + index + "_1");
+        label1.innerHTML = quiz.answers.a;
+
+        divFormCheck2.className = "form-check pb-2";
+
+        input2.setAttribute("type", "radio");
+        input2.className = "form-check-input";
+        input2.setAttribute("id", "radio_" + index + "_2");
+        input2.setAttribute("name", "q" + index)
+        input2.setAttribute("value", "b");
+
+        label2.className = "form-check-label";
+        label2.setAttribute("for", "radio_" + index + "_2");
+        label2.innerHTML = quiz.answers.b;
+
+        divFormCheck3.className = "form-check pb-2";
+
+        input3.setAttribute("type", "radio");
+        input3.className = "form-check-input";
+        input3.setAttribute("id", "radio_" + index + "_3");
+        input3.setAttribute("name", "q" + index)
+        input3.setAttribute("value", "c");
+
+        label3.className = "form-check-label";
+        label3.setAttribute("for", "radio_" + index + "_3");
+        label3.innerHTML = quiz.answers.c;
+
+        divFormCheck4.className = "form-check pb-2";
+
+        input4.setAttribute("type", "radio");
+        input4.className = "form-check-input";
+        input4.setAttribute("id", "radio_" + index + "_4");
+        input4.setAttribute("name", "q" + index)
+        input4.setAttribute("value", "d");
+
+        label4.className = "form-check-label";
+        label4.setAttribute("for", "radio_" + index + "_4");
+        label4.innerHTML = quiz.answers.d;
+
+        divFormCheck1.appendChild(input1);
+        divFormCheck1.appendChild(label1);
+
+        divFormCheck2.appendChild(input2);
+        divFormCheck2.appendChild(label2);
+
+        divFormCheck3.appendChild(input3);
+        divFormCheck3.appendChild(label3);
+
+        divFormCheck4.appendChild(input4);
+        divFormCheck4.appendChild(label4);
+
+        divRadioGroup.appendChild(divFormCheck1);
+        divRadioGroup.appendChild(divFormCheck2);
+        divRadioGroup.appendChild(divFormCheck3);
+        divRadioGroup.appendChild(divFormCheck4);
+
+        quizQuestion.appendChild(label);
+
+        quizQuestion.appendChild(divRadioGroup);
+        console.log(quizQuestion)
+        // quiz.appendChild(quizQuestion);
+
+        //  *   <div class="quiz-question">-->
+        //  *      <label for="radio-group" class="pb-2 pt-3">Q1. What is your favorite color?</label>-->
+        //  *       <div id="radio-group">-->
+        //  *           <div class="form-check pb-2">-->
+        //  *               <input type="radio" class="form-check-input " id="radio1" name="q1" value="option1">-->
+        //  *               <label class="form-check-label" for="radio1">Option 1</label>-->
+        //  *           </div>-->
+        //  *           <div class="form-check pb-2">-->
+        //  *               <input type="radio" class="form-check-input" id="radio2" name="q1" value="option2">-->
+        //  *               <label class="form-check-label" for="radio2">Option 2</label>-->
+        //  *           </div>-->
+        //  *           <div class="form-check pb-2">-->
+        //  *               <input type="radio" class="form-check-input" id="radio3" name="q1" value="option3">-->
+        //  *               <label class="form-check-label" for="radio3">Option 3</label>-->
+        //  *           </div>-->
+        //  *           <div class="form-check pb-2">-->
+        //  *               <input type="radio" class="form-check-input" id="radio4" name="q1" value="option4">-->
+        //  *               <label class="form-check-label" for="radio4">Option 4</label>-->
+        //  *           </div>-->
+        //  *       </div>-->
+        //  *   </div>-->
+
+    }
+
 
     let glossaryArray = [
         {'term': '(S)CRUD', 'definition': 'This refers to the basic operations of data manipulation in a web application, where "S" stands for "Search," "C" for "Create," "R" for "Read," "U" for "Update," and "D" for "Delete." '},

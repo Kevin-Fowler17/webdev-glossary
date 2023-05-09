@@ -19,7 +19,7 @@
             card.className = "carousel-item"
         }
 
-        div.className = "flashcard ";
+        div.className = "flashcard";
 
         question.setAttribute("style", "border-top: 1px solid red; padding: 15px; margin-top: 30px");
         question.innerHTML = terms.term;
